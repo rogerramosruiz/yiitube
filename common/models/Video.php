@@ -73,6 +73,8 @@ class Video extends \yii\db\ActiveRecord
             ['status', 'default', 'value' => self::STATUS_UNLISTED],
             //validator for images 
             ['thumbnail', 'image', 'minWidth' => 300],
+            // validator for videos
+            ['video','file', 'extensions' =>  ['mp4']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
         ];
     }
