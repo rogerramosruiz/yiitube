@@ -15,7 +15,7 @@ $this->beginContent('@backend/views/layouts/base.php')
 ?>
 <main role="main" class="d-flex">
     <?php echo $this->render('_sidebar') ?>
-    <div class="content-wraper p-3">
+    <div class="content-wraper p-3 w-100">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
