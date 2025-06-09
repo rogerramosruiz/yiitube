@@ -27,9 +27,6 @@ return [
             // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-backend',
         ],
-        'cache' => [
-            'class' => 'yii\caching\DummyCache',
-        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -48,6 +45,10 @@ return [
             'rules' => [
             ],
         ],
+
+        'assetManager' => [
+            'appendTimestamp' => true
+        ]
     ],
     'params' => $params,
 ];
