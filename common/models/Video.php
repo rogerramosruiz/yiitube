@@ -1,6 +1,10 @@
 <?php
 
 namespace common\models;
+use yii\helpers\FileHelper;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+
 
 use Yii;
 
@@ -22,7 +26,10 @@ use Yii;
  */
 class Video extends \yii\db\ActiveRecord
 {
-
+    /**
+     * @var yii\web\UploadedFile;
+     */
+    public $video;
 
     /**
      * {@inheritdoc}
@@ -30,6 +37,16 @@ class Video extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%video}}';
+    }
+
+    public function behaviors(){
+        return [
+            TimeStampBehavior::class,
+            [
+                'class' => BlameableBehavior::class, 
+                'updatedByAttribute' => false
+            ]
+        ];
     }
 
     /**
@@ -87,4 +104,26 @@ class Video extends \yii\db\ActiveRecord
         return new \common\models\query\VideoQuery(get_called_class());
     }
 
+    
+    public function save($runValidation = true, $attributes = null)
+    {
+        $isInsert = $this->IsNewRecord;
+        if($isInsert){
+            $this->video_id = Yii::$app->security->generateRandomString(8);
+            $this->title= $this->video->name;
+            $this->video_name = $this->video->name;
+        }
+        $saved = parent::save($runValidation, $attributes);
+        if(!$saved){
+            return false;
+        }
+        if($isInsert){
+            $videoPath = Yii::getAlias('@frontend/web/storage/videos/'. $this->video_id . '.mp4');
+            if(!is_dir(dirname($videoPath))){
+                FileHelper::createDirectory((dirname($videoPath)));
+            }
+            $this->video->saveAs($videoPath);
+        }
+        return true;
+    }
 }

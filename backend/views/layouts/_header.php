@@ -11,10 +11,13 @@ NavBar::begin([
     ],
 ]);
 $menuItems = [
-    ['label' => 'Home', 'url' => ['/site/index']],
+    ['label' => 'Create', 'url' => ['/video/create']]
 ];
+
 if (Yii::$app->user->isGuest) {
-    $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    $menuItems[] = [
+        'label' => 'Login', 'url' => ['/site/login'],
+    ];
 }     
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
