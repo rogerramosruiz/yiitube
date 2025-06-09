@@ -7,7 +7,7 @@ NavBar::begin([
     'brandLabel' => Yii::$app->name,
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
-        'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
+        'class' => 'shadow-sm navbar navbar-expand-lg navbar-light bg-light',
     ],
 ]);
 $menuItems = [
