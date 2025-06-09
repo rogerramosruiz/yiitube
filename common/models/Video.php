@@ -71,6 +71,8 @@ class Video extends \yii\db\ActiveRecord
             [['video_id'], 'unique'],
             ['has_thumbnail', 'default', 'value' => 0],
             ['status', 'default', 'value' => self::STATUS_UNLISTED],
+            //validator for images 
+            ['thumbnail', 'image', 'minWidth' => 300],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
         ];
     }
@@ -152,7 +154,7 @@ class Video extends \yii\db\ActiveRecord
     }
 
     public function getThumnailLink(){
-        return $this->thumbnail ? Yii::$app->params['frontendurl'] .'storage/thumbs/'. $this->video_id. '.jpg': '';
+        return $this->has_thumbnail ? Yii::$app->params['frontendurl'] .'storage/thumbs/'. $this->video_id. '.jpg': '';
     }
     public function getStatusLabels(){
         return [
