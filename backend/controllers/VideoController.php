@@ -2,13 +2,14 @@
 
 namespace backend\controllers;
 
-use common\models\Video;
-use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
+use Yii;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use common\models\Video;
 use yii\web\UploadedFile;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 
 /**
  * VideoController implements the CRUD actions for Video model.
@@ -51,7 +52,7 @@ class VideoController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Video::find(),
+            'query' => Video::find()->creator(Yii::$app->user->id)->latest()
             /*
             'pagination' => [
                 'pageSize' => 50
