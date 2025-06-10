@@ -8,7 +8,7 @@ use \yii\helpers\Url;
     <a href="<?php echo Url::to(['/video/update', 'video_id' => $model->video_id])?>">
         <div>
             <div class="ratio ratio-16x9 " style="width: 120px;">
-                <video src="<?= $model->getVideoLink() ?>" controls poster="<?= $model->getThumnailLink() ?>"></video>
+                <video src="<?= $model->getVideoLink() ?>" poster="<?= $model->getThumnailLink() ?>"></video>
             </div>
         </div>
     </a>
