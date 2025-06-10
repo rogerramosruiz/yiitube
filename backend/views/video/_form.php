@@ -3,9 +3,15 @@
 use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
 
+
 /** @var yii\web\View $this */
 /** @var common\models\Video $model */
 /** @var yii\widgets\ActiveForm $form */
+\backend\assets\TagsInputAsset::register($this);
+$this->registerJs("
+    var input = document.querySelector('#post-tags'); // Adjust ID to match your field
+    new Tagify(input);
+");
 ?>
 
 <div class="video-form">
@@ -20,8 +26,9 @@ use yii\bootstrap5\ActiveForm;
 
             <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-            <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
-
+            <?= $form->field($model, 'tags')->textInput(['id' => 'post-tags']) ?>
+            
+            <!-- <?= $form->field($model, 'tags')->textInput(['id' => 'post-tags']) ?> -->
             <div class="form-groups">
                 <label for="">
                     <?php echo $model->getAttributeLabel('thumbnail') ?>
