@@ -59,7 +59,7 @@ $this->registerJs("
                poster="<?php echo $model->getThumnailLink()?>" 
                 ></video>
             </div> 
-            </div>
+        </div>
             <div class="mb-3">
                 <div class="text-muted">
                     Video name
