@@ -164,4 +164,15 @@ class Video extends \yii\db\ActiveRecord
             self::STATUS_PUBLISHED => 'Published'
         ];
     }
+
+    public function afterDelete(){
+        parent::afterDelete();
+        $videoPath = Yii::getAlias('@frontend/web/storage/videos/'. $this->video_id . '.mp4');
+        $thumbnailPath = Yii::getAlias('@frontend/web/storage/thumbs/' . $this->video_id . '.jpg');
+        unlink($videoPath);
+        if(file_exists($thumbnailPath)){
+            unlink($thumbnailPath);
+        }
+    }
 }
+
