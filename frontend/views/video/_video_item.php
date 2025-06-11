@@ -19,7 +19,6 @@ use \yii\helpers\Url;
         <p class="text-muted card-text m-0">
             <?php echo \common\helpers\Html::ChannelLink($model->createdBy) ?>
         </p>
-        
         <p class="text-muted card-text m-0">
             <?php echo $model->getViews()->count() ?> views ·
             <?php 

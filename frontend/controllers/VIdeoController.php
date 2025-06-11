@@ -51,8 +51,16 @@ class VideoController extends Controller {
         $videoView-> user_id = \Yii::$app->user->id; 
         $videoView->created_at = time();
         $videoView->save();
+
+        $similarVideos = Video::find()
+        ->published()
+        ->andWhere(['NOT', ['video_id' => $id]])
+        ->byKeyword($video->title)
+        ->limit(10)->all();
+
         return $this->render('view', [
-            'model' => $video
+            'model' => $video,
+            'similarVideos' => $similarVideos
         ]);
 
     }
