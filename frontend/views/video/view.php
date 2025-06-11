@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use \yii\helpers\Html;
 
 /**
  *  @var $model \common\models\Video
@@ -35,9 +36,10 @@ use yii\helpers\Url;
         </div>
         <div>
            <p>
-                <?php echo $model->createdBy->username?>
-                <?php echo \yii\helpers\Html::encode($model->description)?>
+                <?php echo Html::a($model->createdBy->username, ['/channel/view','username' => $model->createdBy->username]) ?>
            </p> 
+
+                <?php echo Html::encode($model->description)?>
         </div>
     </div>
     <div class="col-sm-4">
