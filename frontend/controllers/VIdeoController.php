@@ -15,7 +15,7 @@ class VideoController extends Controller {
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['like', 'dislike'],
+                'only' => ['like', 'dislike', 'history'],
                 'rules' => [
                     [
                         'allow' => true, 
@@ -118,6 +118,26 @@ class VideoController extends Controller {
         $videoLikeDislike->created_at = time();
         $videoLikeDislike->type = $type;
         $videoLikeDislike->save();
+    }
+
+    public function actionHistory(){
+
+        $query = Video::find()->
+        alias('v')
+        ->innerJoin("(select video_id, max(created_at) as max_date
+                from video_view
+                where user_id = :userId
+                group by video_id) vv", 'vv.video_id = v.video_id', [
+                    'userId' => \Yii::$app->user->id
+                ]
+                )->orderBy('vv.max_date DESC');
+            $dataProvider = new ActiveDataProvider([
+            'query' => $query
+         ]);
+            
+        return $this->render("history", [
+        'dataProvider' => $dataProvider,
+        ]);
     }
     protected function findVideo($id){
         $video = Video::findOne($id);
