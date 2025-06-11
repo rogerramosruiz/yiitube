@@ -1,4 +1,5 @@
 <?php
+use yii\helpers\Url;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
@@ -22,6 +23,15 @@ if (Yii::$app->user->isGuest) {
         ]
     ];
 }
+?>
+<form class="d-flex" role="search" action="<?php echo Url::to('/video/search')?>">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+    name="keyword"
+    value="<?php echo Yii::$app->request->get('keyword')?>" 
+    />
+    <button class="btn btn-outline-success" >Search</button>
+</form>
+<?php
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav ml-auto'],
     'items' => $menuItems,

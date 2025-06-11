@@ -3,14 +3,12 @@
 namespace frontend\controllers;
 use common\models\VideoLike;
 use common\models\VideoView;
-use Symfony\Component\EventDispatcher\DependencyInjection\AddEventAliasesPass;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use \yii\web\Controller;
 use common\models\Video;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use function PHPUnit\Framework\returnArgument;
 
 class VideoController extends Controller {
     public function behaviors() {
@@ -119,5 +117,21 @@ class VideoController extends Controller {
             throw new NotFoundHttpException('Video does not exist');
         }
         return $video;
+    }
+
+    public function actionSearch($keyword){
+        $query = Video::find()
+            ->published()
+            ->latest();
+        if ($keyword){
+            $query->byKeyword($keyword);
+        }
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+         ]);
+            
+        return $this->render("search", [
+        'dataProvider' => $dataProvider,
+        ]);
     }
 }
