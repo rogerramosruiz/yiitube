@@ -1,6 +1,11 @@
 <?php
 
-/** @var $model \common\models\Video */
+use yii\helpers\Url;
+
+/**
+ *  @var $model \common\models\Video
+ *  @var yii\web\View $this
+ */
 ?>
 
 <div class="row">
@@ -19,13 +24,20 @@
             <?php echo $model->getViews()->count() ?> views · <?php echo Yii::$app->formatter->asDate($model->created_at)?>
             </div>
             <div>
-                <button class="btn btn-small btn-outline-primary">
-                    <i class="fa-solid fa-thumbs-up"></i> 9
-                </button>
-                <button class="btn btn-small btn-outline-secondary">
-                    <i class="fa-solid fa-thumbs-down"></i> 3
-                </button>
+                <?php \yii\widgets\Pjax::begin() ?>
+                <?php 
+                    echo $this->render('_buttons', [
+                        'model' => $model
+                    ]) 
+                ?>
+                <?php \yii\widgets\Pjax::end() ?>
             </div>
+        </div>
+        <div>
+           <p>
+                <?php echo $model->createdBy->username?>
+                <?php echo \yii\helpers\Html::encode($model->description)?>
+           </p> 
         </div>
     </div>
     <div class="col-sm-4">
