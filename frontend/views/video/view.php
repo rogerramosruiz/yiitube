@@ -36,7 +36,7 @@ use \yii\helpers\Html;
         </div>
         <div>
            <p>
-                <?php echo Html::a($model->createdBy->username, ['/channel/view','username' => $model->createdBy->username]) ?>
+                <?php echo \common\helpers\Html::ChannelLink($model->createdBy) ?>
            </p> 
 
                 <?php echo Html::encode($model->description)?>

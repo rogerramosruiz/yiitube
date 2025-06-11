@@ -1,11 +1,12 @@
 <?php
 namespace frontend\controllers;
-use common\models\Subscriber;
 use common\models\User;
-use yii\filters\AccessControl;
 use yii\web\Controller;
+use common\models\Video;
+use common\models\Subscriber;
+use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
 use Imagine\Exception\NotFoundException;
-use function PHPUnit\Framework\returnArgument;
 
 
 class ChannelController extends Controller{
@@ -25,8 +26,12 @@ class ChannelController extends Controller{
     }
     public function actionView($username) {
         $channel = $this->findChannel($username);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Video::find()->creator($channel->id)->published()
+        ]);
         return $this->render('view', [
-            'channel' => $channel
+            'channel' => $channel,
+            'dataProvider' => $dataProvider
         ]);
         
     }
