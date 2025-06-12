@@ -39,7 +39,10 @@ class VideoController extends Controller {
         $dataProvider = new ActiveDataProvider([
             'query' => Video::find()
             ->with('createdBy')
-            -> published()->latest() ]);
+            -> published()->latest(),
+        'pagination' => [
+            'pageSize' => 3
+        ]]);
             return $this->render("index", [
             'dataProvider' => $dataProvider,
         ]);
