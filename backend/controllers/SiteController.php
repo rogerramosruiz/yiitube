@@ -78,9 +78,14 @@ class SiteController extends Controller
         ->count();
 
         $numberOfSubscribers = $user->getSubscribers()->count();
-        $subscribers = Subscriber::find()->andWhere([
-            'channel_id' => $userId]
-            )->limit(3)->all();
+        $subscribers = Subscriber::find()
+            ->with('user')
+            ->andWhere([
+             'channel_id' => $userId]
+            )
+            -> orderBy('created_at DESC')
+            ->limit(3)
+            ->all();
             return $this->render('index', [
                 'latestVideo' => $latestVideo, 
                 'numberOfView' => $numberOfView,  
