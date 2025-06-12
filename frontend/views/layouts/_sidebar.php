@@ -6,14 +6,15 @@
         'options' => [
             'class' => 'd-flex flex-column nav-pills'
         ],
+        'encodeLabels' => false,
         'items' => [
             [
-                'label' =>  'Home',
+                'label' =>  '<i class="fa-solid fa-house"></i> Home',
                 'url' => ['/video/index']
             ],
 
             [
-                'label' =>  'History',
+                'label' =>  '<i class="fa-solid fa-clock-rotate-left"></i> History',
                 'url' => ['/video/history']
             ],
         ]
