@@ -151,6 +151,7 @@ class VideoController extends Controller {
 
     public function actionSearch($keyword){
         $query = Video::find()
+            ->wit('createdBy')
             ->published()
             ->latest();
         if ($keyword){
