@@ -11,7 +11,7 @@ AppAsset::register($this);
 $this->beginContent('@frontend/views/layouts/base.php')
 ?>
 <main role="main" class="d-flex">
-    <div class="content-wraper p-3">
+    <div class="content-wraper p-3 w-100">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
