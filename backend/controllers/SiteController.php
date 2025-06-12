@@ -77,7 +77,12 @@ class SiteController extends Controller
         ->andWhere(['v.created_by' => $userId])
         ->count();
 
-        $numberOfSubscribers = $user->getSubscribers()->count();
+        $numberOfSubscribers = Yii::$app->cache->get('suscriber-'.$userId);
+        if(!$numberOfSubscribers){
+            $numberOfSubscribers = $user->getSubscribers()->count();
+            Yii::$app->cache->set('suscriber-'.$userId, $numberOfSubscribers);
+        }
+
         $subscribers = Subscriber::find()
             ->with('user')
             ->andWhere([
